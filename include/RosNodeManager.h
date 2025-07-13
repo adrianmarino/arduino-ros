@@ -27,6 +27,7 @@ private:
     bool wifiEnergySavingMode;
     wifi_power_t wifi_power;
 
+    void initWifi();
 public:
     /**
      * @brief Constructor for RosNodeManager.
@@ -47,7 +48,6 @@ public:
         wifi_power_t wifi_power = WIFI_POWER_20_5dBm
     );
 
-    void initWifi();
     void setup();
 
     void update(const uint64_t timeout_ns = RCL_MS_TO_NS(2));

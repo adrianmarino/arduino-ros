@@ -31,8 +31,12 @@ void RosNodeManager::initWifi()
     );
 }
 
-void RosNodeManager::setup()
+RosNodeManager RosNodeManager::setup()
 {
+    this->initWifi();
+
+    syncClockTimeStamp(AR_UTC_TIME_OFFSET_IN_SECONDS);
+
     // Create init_options
     CHECK(
         "Can't create support for node: " + nodeName,
@@ -66,6 +70,7 @@ void RosNodeManager::setup()
     );
 
     logger.info("Connected to Ros2 Agent");
+    return this;
 }
 
 
