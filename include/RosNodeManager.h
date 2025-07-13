@@ -48,7 +48,7 @@ public:
         wifi_power_t wifi_power = WIFI_POWER_20_5dBm
     );
 
-    void setup();
+    RosNodeManager* setup();
 
     void update(const uint64_t timeout_ns = RCL_MS_TO_NS(2));
 

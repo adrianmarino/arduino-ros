@@ -31,7 +31,7 @@ void RosNodeManager::initWifi()
     );
 }
 
-RosNodeManager RosNodeManager::setup()
+RosNodeManager* RosNodeManager::setup()
 {
     this->initWifi();
 
