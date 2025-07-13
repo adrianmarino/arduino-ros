@@ -1,0 +1,16 @@
+{
+    "name": "Arduino Ros",
+    "version": "0.0.1",
+    "description": "Aarduino Ros2 Tools",
+    "keywords": "arduino, Ros2, tools",
+    "authors": {
+        "name": "Adrian Norberto Marino",
+        "url": "https://github.com/adrianmarino"
+    },
+    "license": "MIT",
+    "frameworks": "*",
+    "platforms": "*",
+    "dependencies": {
+        "micro_ros_platformio" : "https://github.com/micro-ROS/micro_ros_platformio"
+    }
+}
