@@ -61,6 +61,7 @@ void softCheck(String msg);
  *
  */
 void connect_to_agent_via_wifi(
+    String hostname,
     String wifi_ssid,
     String wifi_pass,
     String agent_ip,

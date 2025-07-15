@@ -17,6 +17,7 @@ void softCheck(String msg)
 
 
 void connect_to_agent_via_wifi(
+    String hostname,
     String wifi_ssid,
     String wifi_pass,
     String agent_ip,
@@ -24,6 +25,8 @@ void connect_to_agent_via_wifi(
     bool energySavingMode,
   wifi_power_t wifi_power)
 {
+  WiFi.setHostname(hostname);
+
   if (!energySavingMode)
   {
     // Establece el ESP32 en modo estación

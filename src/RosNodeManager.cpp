@@ -22,6 +22,7 @@ void RosNodeManager::initWifi()
 {
     logger.info("Wait for wifi connection...");
     connect_to_agent_via_wifi(
+        nodeName,
         wifi_ssid,
         wifi_pass,
         agent_ip,
