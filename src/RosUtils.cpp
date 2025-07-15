@@ -25,7 +25,7 @@ void connect_to_agent_via_wifi(
     bool energySavingMode,
   wifi_power_t wifi_power)
 {
-  WiFi.setHostname(hostname);
+  WiFi.setHostname(toCharArray(hostname));
 
   if (!energySavingMode)
   {
