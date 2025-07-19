@@ -101,3 +101,6 @@ void RosNodeManager::update(const uint64_t timeout_ns) {
     );
 }
 
+bool RosNodeManager::isConnected(const int timeout_ms,  const uint8_t attempts) {
+    return rmw_uros_ping_agent(timeout_ms, attempts) == RMW_RET_OK;
+}

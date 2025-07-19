@@ -48,6 +48,8 @@ public:
         wifi_power_t wifi_power = WIFI_POWER_20_5dBm
     );
 
+    bool isConnected(const int timeout_ms = 500,  const uint8_t attempts = 2);
+
     RosNodeManager* setup();
 
     void update(const uint64_t timeout_ns = RCL_MS_TO_NS(2));
