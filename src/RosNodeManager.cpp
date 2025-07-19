@@ -7,8 +7,8 @@ RosNodeManager::RosNodeManager(
     String agent_ip,
     uint16_t agent_port,
     bool wifiEnergySavingMode,
-    wifi_power_t wifi_power
-) {
+    wifi_power_t wifi_power)
+{
     this->nodeName = nodeName;
     this->wifi_ssid = wifi_ssid;
     this->wifi_pass = wifi_pass;
@@ -28,79 +28,79 @@ void RosNodeManager::initWifi()
         agent_ip,
         agent_port,
         wifiEnergySavingMode,
-        wifi_power
-    );
+        wifi_power);
 }
 
-RosNodeManager* RosNodeManager::setup()
+RosNodeManager *RosNodeManager::setup()
 {
     this->initWifi();
 
     syncClockTimeStamp(AR_UTC_TIME_OFFSET_IN_SECONDS);
 
     // Create init_options
-    SOFT_CHECK(
-        "Can't create support for node: " + nodeName,
+    assertOk(
         rclc_support_init(
             &support,
             0,
             NULL,
-            &allocator));
+            &allocator),
+        "Can't create support for node: " + nodeName);
 
     // Create node
-    char* charNodeName = toCharArray(nodeName);
+    char *charNodeName = toCharArray(nodeName);
 
-    SOFT_CHECK(
-        "Can't create micro-ros node: " + nodeName,
+    assertOk(
         rclc_node_init_default(
             &node,
             charNodeName,
             "",
-            &support));
-    
+            &support),
+        "Can't create micro-ros node: " + nodeName);
+
     delete charNodeName;
 
-    SOFT_CHECK(
-        "Error to create executor for node: " + nodeName,
+    assertOk(
         rclc_executor_init(
             &executor,
-            &support.context, 
-            1, 
-            &allocator
-        )
-    );
+            &support.context,
+            1,
+            &allocator),
+        "Error to create executor for node: " + nodeName);
 
     logger.info("Connected to Ros2 Agent");
     return this;
 }
 
-
-rclc_support_t* RosNodeManager::getSupport() {
+rclc_support_t *RosNodeManager::getSupport()
+{
     return &support;
 };
 
-rcl_node_t* RosNodeManager::getNode() {
+rcl_node_t *RosNodeManager::getNode()
+{
     return &node;
 };
 
-rcl_allocator_t* RosNodeManager::getAllocator() {
+rcl_allocator_t *RosNodeManager::getAllocator()
+{
     return &allocator;
 }
 
-rclc_executor_t* RosNodeManager::getExecutor() {
+rclc_executor_t *RosNodeManager::getExecutor()
+{
     return &executor;
 }
 
-void RosNodeManager::update(const uint64_t timeout_ns) {
-    CHECK(
-        "Cant't update executor",
+bool RosNodeManager::update(const uint64_t timeout_ns)
+{
+    return assertOk(
         rclc_executor_spin_some(
-            &executor, 
-            timeout_ns
-        )
-    );
+            &executor,
+            timeout_ns),
+        "Cant't Node Manager state");
 }
 
-bool RosNodeManager::isConnected(const int timeout_ms,  const uint8_t attempts) {
+bool RosNodeManager::isConnected(const int timeout_ms, const uint8_t attempts)
+{
     return rmw_uros_ping_agent(timeout_ms, attempts) == RMW_RET_OK;
 }

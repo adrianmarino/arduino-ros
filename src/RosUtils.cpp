@@ -1,19 +1,15 @@
 #include "RosUtils.h"
 #include "Logger.h"
 
-void check(String msg)
-{
-  while (1)
-  {
-    logger.error("Check: " + msg);
-  }
-}
 
-void softCheck(String msg)
-{
-  logger.error("Soft Check: " + msg);
+bool assertOk(rcl_ret_t result, String msg) {
+    if(result == RCL_RET_OK) {
+      return true;
+    } else {
+      logger.error(msg);
+      return false; 
+    }
 }
-
 
 void connect_to_agent_via_wifi(
     String hostname,

@@ -10,43 +10,7 @@
 
 const wifi_power_t WIFI_POWER_20_5dBm = (wifi_power_t)82; // 20.5 dBm * 4 = 82
 
-/**
- * @brief Check the result of a function and print an error message if it fails.
- *
- * This function checks the result of a function call and prints an error message
- * if the result is not RCL_RET_OK. It also resets the error state.
- *
- * @param msg Error message to be printed.
- */
-#define CHECK(msg, fn)           \
-  {                              \
-    rcl_ret_t temp_rc = fn;      \
-    if ((temp_rc != RCL_RET_OK)) \
-    {                            \
-      check(msg);                \
-    }                            \
-  }
-
-/**
- * @brief Soft check the result of a function and print an error message if it fails.
- *
- * This function checks the result of a function call and prints an error message
- * if the result is not RCL_RET_OK. It does not reset the error state.
- *
- * @param msg Error message to be printed.
- */
-#define SOFT_CHECK(msg, fn)      \
-  {                              \
-    rcl_ret_t temp_rc = fn;      \
-    if ((temp_rc != RCL_RET_OK)) \
-    {                            \
-      softCheck(msg);            \
-    }                            \
-  }
-
-void check(String msg);
-
-void softCheck(String msg);
+bool assertOk(rcl_ret_t result, String msg);
 
 /**
  * @brief Connect to the micro-ROS agent via Wi-Fi.
@@ -68,3 +32,4 @@ void connect_to_agent_via_wifi(
     uint16_t agent_port,
     bool energySavingMode,
     wifi_power_t wifi_power);
+

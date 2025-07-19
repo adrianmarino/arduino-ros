@@ -52,7 +52,7 @@ public:
 
     RosNodeManager* setup();
 
-    void update(const uint64_t timeout_ns = RCL_MS_TO_NS(2));
+    bool update(const uint64_t timeout_ns = RCL_MS_TO_NS(2));
 
     rclc_support_t *getSupport();
 

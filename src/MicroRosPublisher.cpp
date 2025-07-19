@@ -63,27 +63,30 @@ MicroRosPublisher::MicroRosPublisher(
     int delayMillis,
     bool reliable)
 {
-  if (reliable) {
-    CHECK(
-        "Error to create reliable publisher",
+  if (reliable)
+  {
+    assertOk(
         rclc_publisher_init_default(
-            &this->publisher, node, type_support, toCharArray(topic_name)));
-  } else {
-    CHECK(
-        "Error to create best_effort publisher",
+            &this->publisher, node, type_support, toCharArray(topic_name)),
+        "Error to create reliable publisher");
+  }
+  else
+  {
+    assertOk(
         rclc_publisher_init_best_effort(
-            &this->publisher, node, type_support, toCharArray(topic_name)));
+            &this->publisher, node, type_support, toCharArray(topic_name)),
+        "Error to create best_effort publisher");
   }
   this->delayMillis = delayMillis;
 };
 
 void MicroRosPublisher::publish(const void *message)
 {
-  SOFT_CHECK(
-      "Error to publish message",
+  assertOk(
       rcl_publish(
           &this->publisher,
           message,
-          NULL));
+          NULL),
+      "Error to publish message");
   delay(this->delayMillis);
 };
