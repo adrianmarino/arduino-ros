@@ -6,7 +6,6 @@ void check(String msg)
   while (1)
   {
     logger.error("Check: " + msg);
-    delay(1000);
   }
 }
 

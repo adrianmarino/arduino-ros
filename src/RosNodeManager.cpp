@@ -39,7 +39,7 @@ RosNodeManager* RosNodeManager::setup()
     syncClockTimeStamp(AR_UTC_TIME_OFFSET_IN_SECONDS);
 
     // Create init_options
-    CHECK(
+    SOFT_CHECK(
         "Can't create support for node: " + nodeName,
         rclc_support_init(
             &support,
@@ -50,7 +50,7 @@ RosNodeManager* RosNodeManager::setup()
     // Create node
     char* charNodeName = toCharArray(nodeName);
 
-    CHECK(
+    SOFT_CHECK(
         "Can't create micro-ros node: " + nodeName,
         rclc_node_init_default(
             &node,
@@ -60,7 +60,7 @@ RosNodeManager* RosNodeManager::setup()
     
     delete charNodeName;
 
-    CHECK(
+    SOFT_CHECK(
         "Error to create executor for node: " + nodeName,
         rclc_executor_init(
             &executor,
