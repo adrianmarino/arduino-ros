@@ -7,7 +7,8 @@ RosNodeManager::RosNodeManager(
     String agent_ip,
     uint16_t agent_port,
     bool wifiEnergySavingMode,
-    wifi_power_t wifi_power)
+    wifi_power_t wifi_power,
+    bool syncTime)
 {
     this->nodeName = nodeName;
     this->wifi_ssid = wifi_ssid;
@@ -16,6 +17,7 @@ RosNodeManager::RosNodeManager(
     this->agent_port = agent_port;
     this->wifiEnergySavingMode = wifiEnergySavingMode;
     this->wifi_power = wifi_power;
+    this->syncTime = syncTime;
 }
 
 void RosNodeManager::initWifi()
@@ -35,7 +37,9 @@ RosNodeManager *RosNodeManager::setup()
 {
     this->initWifi();
 
-    syncClockTimeStamp(AR_UTC_TIME_OFFSET_IN_SECONDS);
+    if(syncTime) {
+        syncClockTimeStamp(AR_UTC_TIME_OFFSET_IN_SECONDS);
+    }
 
     // Create init_options
     assertOk(

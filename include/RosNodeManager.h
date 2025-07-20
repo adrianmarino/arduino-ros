@@ -26,6 +26,7 @@ private:
     rclc_executor_t executor;
     bool wifiEnergySavingMode;
     wifi_power_t wifi_power;
+    bool syncTime;
 
     void initWifi();
 public:
@@ -45,7 +46,8 @@ public:
         String agent_ip,
         uint16_t agent_port = 8888,
         bool wifiEnergySavingMode = false,
-        wifi_power_t wifi_power = WIFI_POWER_20_5dBm
+        wifi_power_t wifi_power = WIFI_POWER_20_5dBm,
+        bool syncTime = true
     );
 
     bool isConnected(const int timeout_ms = 500,  const uint8_t attempts = 2);
